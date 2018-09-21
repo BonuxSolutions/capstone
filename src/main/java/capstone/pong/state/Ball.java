@@ -1,13 +1,12 @@
 package capstone.pong.state;
 
-import java.awt.*;
 import java.util.Random;
 
 import static capstone.pong.utils.Constants.H;
 import static capstone.pong.utils.Constants.W;
 
-public class Ball
-    implements Moveable, Paintable {
+public final class Ball
+    implements Moveable {
   public static final int Radius_px = 20;
 
   private int x, y;
@@ -64,11 +63,5 @@ public class Ball
   ) {
     this.vx = vx;
     this.vy = vy;
-  }
-
-  @Override
-  public void paint(Graphics g) {
-    g.setColor(Color.RED);
-    g.fillOval(x, y, Radius_px, Radius_px);
   }
 }

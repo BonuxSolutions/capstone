@@ -4,8 +4,10 @@ import capstone.pong.controllers.*;
 import capstone.pong.state.Ball;
 import capstone.pong.state.GameStats;
 import capstone.pong.state.Pad;
+import capstone.pong.view.BallPainter;
 import capstone.pong.view.GameBoard;
 import capstone.pong.view.GameUIComponents;
+import capstone.pong.view.PadPainter;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -64,15 +66,15 @@ public class PingPong {
             "ball-start"
         );
 
-        components.getGameBoardUI().addPaintable(topPad);
-        components.getGameBoardUI().addPaintable(bottomPad);
-        components.getGameBoardUI().addPaintable(ball);
+        components.getGameBoardUI().addPainter(PadPainter.create(topPad));
+        components.getGameBoardUI().addPainter(PadPainter.create(bottomPad));
+        components.getGameBoardUI().addPainter(BallPainter.create(ball));
 
         gameBoardController.registerMoveable(topPad);
         gameBoardController.registerMoveable(bottomPad);
         gameBoardController.registerMoveable(ball);
 
-        final GameBoard gameBoard = GameBoard.create(components, timer);
+        final GameBoard gameBoard = GameBoard.create(components);
         gameBoard.go();
       } catch (Exception e) {
         e.printStackTrace(System.out);

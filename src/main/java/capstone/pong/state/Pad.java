@@ -1,12 +1,11 @@
 package capstone.pong.state;
 
-import java.awt.*;
 import java.util.Objects;
 
 import static capstone.pong.utils.Constants.*;
 
-public class Pad
-    implements Moveable, Paintable {
+public final class Pad
+    implements Moveable {
   public enum Placement {
     Top(THICKNESS), Bottom(H - THICKNESS - Heigth);
 
@@ -29,21 +28,20 @@ public class Pad
 
   public static final int Width = 100;
   public static final int Heigth = 20;
-  private Rectangle pad;
   private PadMovementDirection padMovementDirection;
   private int x;
+  private final Placement placement;
 
-  private Pad(Placement p) {
+  private Pad(Placement placement) {
     x = (W - Width) / 2;
-    pad = new Rectangle(x, p.y, Width, Heigth);
     padMovementDirection = PadMovementDirection.StandStill;
+    this.placement = placement;
   }
 
   @Override
   public void reset() {
     x = (W - Width) / 2;
     padMovementDirection = PadMovementDirection.StandStill;
-    pad = new Rectangle(x, pad.y, Width, Heigth);
   }
 
   public static Pad topPad() {
@@ -70,31 +68,28 @@ public class Pad
     return x;
   }
 
+  public int y() {
+    return placement.y;
+  }
+
   @Override
   public void move() {
     int dx = padMovementDirection.vector * Speed_px;
     x += dx;
-    pad.translate(dx, 0);
-  }
-
-  @Override
-  public void paint(Graphics g) {
-    g.setColor(Color.GRAY);
-    ((Graphics2D) g).fill(pad);
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Pad pad1 = (Pad) o;
-    return x == pad1.x &&
-        Objects.equals(pad, pad1.pad) &&
-        padMovementDirection == pad1.padMovementDirection;
+    Pad pad = (Pad) o;
+    return x == pad.x &&
+        padMovementDirection == pad.padMovementDirection &&
+        placement == pad.placement;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pad, padMovementDirection, x);
+    return Objects.hash(padMovementDirection, x, placement);
   }
 }

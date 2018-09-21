@@ -1,14 +1,12 @@
 package capstone.pong.view;
 
-import capstone.pong.state.Paintable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public final class GameBoardPanel extends CapstoneJPanel {
-  private final Set<Paintable> paintables = new HashSet<>();
+  private final Set<Painter> painters = new HashSet<>();
   private static final int modifiers = 0;
   private static final boolean released = false;
 
@@ -19,14 +17,14 @@ public final class GameBoardPanel extends CapstoneJPanel {
     return new GameBoardPanel();
   }
 
-  public void addPaintable(Paintable paintable) {
-    paintables.add(paintable);
+  public void addPainter(Painter painter) {
+    painters.add(painter);
   }
 
   @Override
   public void paint(Graphics g) {
     super.paint(g);
-    paintables.forEach(p -> p.paint(g));
+    painters.forEach(p -> p.paint(g));
   }
 
   public void add(

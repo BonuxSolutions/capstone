@@ -10,14 +10,9 @@ import static capstone.pong.utils.Constants.*;
 public final class GameBoard {
 
   private final GameUIComponents components;
-  private final Timer timer;
 
-  private GameBoard(
-      GameUIComponents components,
-      Timer timer
-  ) {
+  private GameBoard(GameUIComponents components) {
     this.components = components;
-    this.timer = timer;
   }
 
   public void go() {
@@ -45,11 +40,8 @@ public final class GameBoard {
     jFrame.setVisible(true);
   }
 
-  public static GameBoard create(
-      GameUIComponents components,
-      Timer timer
-  ) {
-    return new GameBoard(components, timer);
+  public static GameBoard create(GameUIComponents components) {
+    return new GameBoard(components);
   }
 
   private JComponent mainPanel() {
